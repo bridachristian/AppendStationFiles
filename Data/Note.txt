@@ -1,0 +1,5 @@
+These example show 2 examples of data that the scripts could process
+- M1 is a new station with a CR1000 Logger (Campbell). The software (in running) on the station provide a TOA5 header!
+- M1old is an old stations with a Hobo logger that provide data files with an header with 2 rows!
+- other format is admitted, you have only to config a properties file
+
