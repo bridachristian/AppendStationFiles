@@ -13,7 +13,7 @@ current_path = rstudioapi::getActiveDocumentContext()$path
 setwd(dirname(dirname(current_path)))
 
 # setting_dir ="H:/Projekte/Klimawandel/Experiment/data/2order/DQC/Anno_Zero/Setting/file_config_append/"
-setting_dir = paste(getwd(),"/Settings/file_config_append/",sep = "")        # <-- TO SET
+setting_dir = paste(getwd(),"/Setting/file_config_append/",sep = "")    # <- TO SET --> use the folder where you have saved the file .properties
 
 # ----------------------------------------------------------------------------------------------------------
 #                                               SETTINGS  

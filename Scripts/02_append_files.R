@@ -13,11 +13,8 @@ current_path = rstudioapi::getActiveDocumentContext()$path
 setwd(dirname(dirname(current_path)))
 
 # setting_dir ="H:/Projekte/Klimawandel/Experiment/data/2order/DQC/Anno_Zero/Setting/file_config_append/"
-setting_dir = paste(getwd(),"/Settings/file_config_append/",sep = "")      # <-- HERE YOU HAVE TO SET WHERE THE PROPERTIES FILES PRODUCED WITH THE SCRIPT
-#                                                                           #     01_file_config_creator.R  (Settings)  
+setting_dir = paste(getwd(),"/Setting/file_config_append/",sep = "")    # <- TO SET --> use the folder where you have saved the file .properties
 
-
- 
 # ----------------------------------------------------------------------------------------------------------
 #                                               SETTINGS  
 # ----------------------------------------------------------------------------------------------------------
@@ -27,13 +24,24 @@ if(!exists("STATION_DIR")){
   if(length(STATION_DIR) == 0){
     stop("Insert the data folder!")
     rm(list = ls())
-
+    
   }else{
     station_name = basename(STATION_DIR)
-    if(grepl(STATION_DIR,pattern = "hobo")){
+    STATION_DIR <- gsub("\\\\","/",STATION_DIR)
+    list_files_dir = list.files(STATION_DIR,include.dirs = FALSE,recursive = FALSE,full.names=TRUE)
+    list_dir = list.dirs(STATION_DIR,recursive = FALSE)
+    
+    list_files = setdiff(list_files_dir,list_dir)
+    
+    first_row = read.csv(file = list_files[1],header = F,nrows = 1,stringsAsFactors = F)   # extract the first row of a file
+    first_cell =first_row[1,1]    # extract the first cell
+    
+    # if(grepl(STATION_DIR,pattern = "hobo")){
+    if(grepl(first_cell,pattern = "Plot Title")){                                          # <-- HOBO files are characterized from "Plot Title" in the first cell
       input_setting = read.properties(paste(setting_dir,"/hobo.properties",sep = ""))
     }else{
-      if(grepl(STATION_DIR,pattern = "campbell")){
+      # if(grepl(STATION_DIR,pattern = "campbell")){
+      if(grepl(first_cell,pattern = "TOA5")){                                              # <-- Campbell files are characterized from "TOA5" in the first cell
         input_setting = read.properties(paste(setting_dir,"/campbell.properties",sep = ""))
       }else{
         # read file_settings
@@ -51,10 +59,22 @@ if(!exists("STATION_DIR")){
     STATION_DIR = jchoose.dir(default = dirname(STATION_DIR),caption = "Select the WORKING DIRECTORY you want process:")
     
     station_name = basename(STATION_DIR)
-    if(grepl(STATION_DIR,pattern = "hobo")){
+    STATION_DIR <- gsub("\\\\","/",STATION_DIR)
+    
+    list_files_dir = list.files(STATION_DIR,include.dirs = FALSE,recursive = FALSE,full.names=TRUE)
+    list_dir = list.dirs(STATION_DIR,recursive = FALSE)
+    
+    list_files = setdiff(list_files_dir,list_dir)
+    
+    first_row = read.csv(file = list_files[1],header = F,nrows = 1,stringsAsFactors = F)   # extract the first row of a file
+    first_cell =first_row[1,1]    # extract the first cell
+    
+    # if(grepl(STATION_DIR,pattern = "hobo")){
+    if(grepl(first_cell,pattern = "Plot Title")){                                          # <-- HOBO files are characterized from "Plot Title" in the first cell
       input_setting = read.properties(paste(setting_dir,"/hobo.properties",sep = ""))
     }else{
-      if(grepl(STATION_DIR,pattern = "campbell")){
+      # if(grepl(STATION_DIR,pattern = "campbell")){
+      if(grepl(first_cell,pattern = "TOA5")){                                              # <-- Campbell files are characterized from "TOA5" in the first cell
         input_setting = read.properties(paste(setting_dir,"/campbell.properties",sep = ""))
       }else{
         # read file_settings
@@ -92,7 +112,8 @@ if(length(STATION_DIR) == 0){
     STATION_DIR <- gsub("\\\\","/",STATION_DIR)
     # STATION_DIR <- paste(STATION_DIR,"/",sep = "")
     
-    input_dir = paste(STATION_DIR,"/input/",sep = "")              #<-- subfolder STATION_DIR/input/
+    # input_dir = paste(STATION_DIR,"/input/",sep = "")              #<-- subfolder STATION_DIR/input/
+    input_dir = paste(STATION_DIR,"/",sep = "")              #<-- subfolder STATION_DIR/input/
     output_dir = paste(STATION_DIR,"/output/",sep = "")            #<-- subfolder STATION_DIR/output/
     if(!dir.exists(output_dir)){
       dir.create(output_dir)
