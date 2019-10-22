@@ -10,7 +10,7 @@ library(rstudioapi)
 current_path = rstudioapi::getActiveDocumentContext()$path 
 setwd(dirname(dirname(current_path)))
 
-setting_dir = paste(getwd(),"/Setting/file_config_append/",sep = "")    # <- You can set another one
+setting_dir = paste(getwd(),"/Setting/file_config_append/",sep = "")    # <-  This is the default folder for setting (dir_choose starts from here!). If you prefer another one chose here!
 if(!dir.exists(setting_dir)){
   dir.create(setting_dir)
 }

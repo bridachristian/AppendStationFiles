@@ -74,6 +74,26 @@ Repository structure
     configuration are used to read and check hobo station and campbell
     station.
 
+How to use
+----------
+
+1.  Prepare file configuration: in the folder *Script* open the script
+    **01\_file\_config\_creator.R**, eventually change the default
+    setting dir (only for visualization in the input mask), select all
+    and run!
+
+2.  Append files: in the folder *Script* open the script
+    **02\_append\_files.R**, set were the default (hobo/campbell) file
+    configuration are, run the script passing the folder of the station.
+    It creates automatically output directory.
+
+3.  Convert hobo to campbell: in the folder *Script* open the script
+    **03\_convert\_hobo\_to\_campbell.R**, set were the default
+    (hobo/campbell) file configuration are, run the script passing the
+    folder of the station. NOTE: It automatically search files in the
+    subfolder output and save the result in the subfolder
+    output\_campbell\_format
+
 Contributors & Contacts:
 ------------------------
 
